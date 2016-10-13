@@ -9,6 +9,13 @@ describe('app', function() {
         assert(server.app);
     });
 
+    it('should serve a page from /', function(done) {
+        supertest(server.app)
+            .get('/')
+            .expect(200)
+            .expect('Content-Type', /html/, done)
+    });
+    
     it('should serve a page from /api/whoami', function(done) {
         server.app.enable('trust proxy');
         supertest(server.app)  
