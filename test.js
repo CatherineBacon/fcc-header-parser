@@ -9,20 +9,6 @@ describe('app', function() {
         assert(server.app);
     });
 
-    it('should listen at a default port if none set', function() {
-        delete process.env.PORT;
-        delete require.cache[require.resolve('./server.js')];
-        server = require('./server.js');
-        assert.equal(server.listener.address().port, 8080);
-    });
-
-    it('should listen on PORT if set', function() {
-        process.env.PORT = 9000;
-        delete require.cache[require.resolve('./server.js')];
-        server = require('./server.js');
-        assert.equal(server.listener.address().port, process.env.PORT);
-    });
-
     it('should serve a page from /api/whoami', function(done) {
         server.app.enable('trust proxy');
         supertest(server.app)  
